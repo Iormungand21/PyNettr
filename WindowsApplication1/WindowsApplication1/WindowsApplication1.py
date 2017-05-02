@@ -33,7 +33,7 @@ class FormOne(Form):
         self.top_label.Size = Size(120,30)
         self.top_label.ForeColor = self.color_title
         self.top_label.Font = Font("Lucida Console", 16, FontStyle.Bold)
-        self.top_label.Location = Point(210,3)
+        self.top_label.Location = Point(185,3)
 
         #Console box to write to
         self.console_box = TextBox()
@@ -45,45 +45,20 @@ class FormOne(Form):
         self.console_box.Anchor = (AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom )
 
         #Placeholder_1 Tool panel#################################
-        self.placeholder_panel_1 = Panel()
+        self.placeholder_panel_1 = self.new_panel()
         self.placeholder_panel_1.Name = "placeholder_panel_1"
-        self.placeholder_panel_1.Location = Point(30,75)
-        self.placeholder_panel_1.Size = Size(420,260)
-        self.placeholder_panel_1.BackColor = Color.AntiqueWhite
-        self.placeholder_panel_1.Anchor = (AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Top)
-        self.placeholder_panel_1.Visible = False
-        self.placeholder_panel_1.Enabled = self.placeholder_panel_1.Visible
 
         #Placeholder_2 Tool Panel##################################
-        self.placeholder_panel_2 = Panel()
+        self.placeholder_panel_2 = self.new_panel()
         self.placeholder_panel_2.Name = "placeholder_panel_2"
-        self.placeholder_panel_2.Location = Point(30,75)
-        self.placeholder_panel_2.Size = Size(420,260)
-        self.placeholder_panel_2.BackColor = Color.Aqua
-        self.placeholder_panel_2.Anchor = (AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Top)
-        self.placeholder_panel_2.Visible = False
-        self.placeholder_panel_2.Enabled = self.placeholder_panel_2.Visible
 
         #Placeholder_3 Tool Panel##################################
-        self.placeholder_panel_3 = Panel()
+        self.placeholder_panel_3 = self.new_panel()
         self.placeholder_panel_3.Name = "placeholder_panel_3"
-        self.placeholder_panel_3.Location = Point(30,75)
-        self.placeholder_panel_3.Size = Size(420,260)
-        self.placeholder_panel_3.BackColor = Color.SeaGreen
-        self.placeholder_panel_3.Anchor = (AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Top)
-        self.placeholder_panel_3.Visible = False
-        self.placeholder_panel_3.Enabled = self.placeholder_panel_3.Visible
-
 
         # ACL Tool Panel########################################
-        self.acl_panel = Panel()
+        self.acl_panel = self.new_panel()
         self.acl_panel.Name = "acl_panel"
-        self.acl_panel.Location = Point(30,75)
-        self.acl_panel.Size = Size(420,260)
-        self.acl_panel.BackColor = self.color_panel
-        self.acl_panel.Anchor = (AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Top)
-        self.acl_panel.Visible = False
-        self.acl_panel.Enabled = self.acl_panel.Visible
 
         #ACL name label
         self.acl_label = Label()
@@ -94,34 +69,27 @@ class FormOne(Form):
         self.acl_label.Font = Font("Lucida Console", 10)
 
         #ACL name field
-        self.acl_name_field = TextBox()
+        self.acl_name_field = self.new_textbox()
         self.acl_name_field.Location = Point(100,11)
         self.acl_name_field.Size = Size(300,20)
+        self.acl_name_field.Text = "Outside_access_in"
 
         #Protocol radio buttons
-        self.acl_proto_tcp_radio = RadioButton()
+        self.acl_proto_tcp_radio = self.new_radio()
         self.acl_proto_tcp_radio.Name = "acl_proto_tcp_radio"
         self.acl_proto_tcp_radio.Text = "TCP"
-        self.acl_proto_tcp_radio.Font = Font("Lucida Console", 10)
-        self.acl_proto_tcp_radio.ForeColor = self.color_window
-        self.acl_proto_tcp_radio.Size = Size(50, 15)
         self.acl_proto_tcp_radio.Location = Point(10,17)
 
-        self.acl_proto_udp_radio = RadioButton()
+        self.acl_proto_udp_radio = self.new_radio()
         self.acl_proto_udp_radio.Name = "acl_proto_udp_radio"
         self.acl_proto_udp_radio.Text = "UDP"
-        self.acl_proto_udp_radio.Font = Font("Lucida Console", 10)
-        self.acl_proto_udp_radio.ForeColor = self.color_window
-        self.acl_proto_udp_radio.Size = Size(50, 15)
         self.acl_proto_udp_radio.Location = Point(60,17)
 
-        self.acl_proto_all_radio = RadioButton()
+        self.acl_proto_all_radio = self.new_radio()
         self.acl_proto_all_radio.Name = "acl_proto_all_radio"
         self.acl_proto_all_radio.Text = "All"
-        self.acl_proto_all_radio.Font = Font("Lucida Console", 10)
-        self.acl_proto_all_radio.ForeColor = self.color_window
-        self.acl_proto_all_radio.Size = Size(50, 15)
         self.acl_proto_all_radio.Location = Point(110,17)
+        self.acl_proto_all_radio.CheckedChanged += EventHandler(self.radio_check)
 
 
         #Protocol groubox for radio options
@@ -136,37 +104,43 @@ class FormOne(Form):
         self.acl_proto_groupbox.Controls.Add(self.acl_proto_udp_radio)
         self.acl_proto_groupbox.Controls.Add(self.acl_proto_all_radio)
        
-
+        # Source typeLabel
         self.acl_source_type_label = Label()
         self.acl_source_type_label.Name = "acl_source_type_label"
         self.acl_source_type_label.Location = Point(190,45)
         self.acl_source_type_label.Font = Font("Lucida Console", 8)
         self.acl_source_type_label.Text = "Source Type:"
-
-        self.acl_source_type_box = ComboBox()
+        #Source type combo box
+        self.acl_source_type_box = self.new_combobox()
         self.acl_source_type_box.Name = "acl_source_type_box"
-        self.acl_source_type_box.BackColor = self.color_window
-        self.acl_source_type_box.ForeColor = self.color_title
-        self.acl_source_type_box.Font = Font("Lucida Console", 8)
         self.acl_source_type_box.Items.AddRange(("host", "object-group", "object"))
+        self.acl_source_type_box.Text = "object-group"
         self.acl_source_type_box.Location = Point(281, 40)
-        self.acl_source_type_box.Size = Size(120,21)
-
+        # Dest type lable
         self.acl_dest_type_label = Label()
         self.acl_dest_type_label.Name = "acl_dest_type_label"
         self.acl_dest_type_label.Location = Point(192,71)
         self.acl_dest_type_label.Font = Font("Lucida Console", 8)
         self.acl_dest_type_label.Text = "Dest. Type:"
-
-        self.acl_dest_type_box = ComboBox()
+        #Dest type combo box
+        self.acl_dest_type_box = self.new_combobox()
         self.acl_dest_type_box.Name = "acl_dest_type_box"
-        self.acl_dest_type_box.Font = Font("Lucida Console", 8)
-        self.acl_dest_type_box.BackColor = self.color_window
-        self.acl_dest_type_box.ForeColor = self.color_title
         self.acl_dest_type_box.Items.AddRange(("host", "object-group", "object"))
+        self.acl_dest_type_box.Text = "object-group"
         self.acl_dest_type_box.Location = Point(281, 66)
-        self.acl_dest_type_box.Size = Size(120,21)
 
+        #source text entry
+        self.acl_source_entry = self.new_textbox()
+        self.acl_source_entry.Name = "acl_source_entry"
+        self.acl_source_entry.Size = Size(384, 20)
+        self.acl_source_entry.Location = Point(17, 98)
+        self.acl_source_entry.Text = "source-object-group"
+        #destination text entry
+        self.acl_dest_entry = self.new_textbox()
+        self.acl_dest_entry.Name = "acl_dest_name"
+        self.acl_dest_entry.Size = Size(384, 20)
+        self.acl_dest_entry.Location = Point(17, 120)
+        self.acl_dest_entry.Text = "destination-object-group"
 
         #ACL panel layout
         self.acl_panel.Controls.Add(self.acl_label)
@@ -176,6 +150,8 @@ class FormOne(Form):
         self.acl_panel.Controls.Add(self.acl_source_type_label)
         self.acl_panel.Controls.Add(self.acl_dest_type_box)
         self.acl_panel.Controls.Add(self.acl_dest_type_label)
+        self.acl_panel.Controls.Add(self.acl_source_entry)
+        self.acl_panel.Controls.Add(self.acl_dest_entry)
 
         #End of ACL Tool Panel##################################
    
@@ -219,7 +195,8 @@ class FormOne(Form):
         self.button_ph_tool_3.Text ="Test3"
         self.button_ph_tool_3.Font = Font("Lucida Console", 10, FontStyle.Bold)
         self.button_ph_tool_3.Size = Size(92, 32)
-        self.button_ph_tool_3.Click += self.placeholder_tool_3
+
+
 
         #Adding initial layout##################################
         self.Controls.Add(self.top_label)
@@ -232,9 +209,45 @@ class FormOne(Form):
         self.Controls.Add(self.acl_panel)
         self.Controls.Add(self.placeholder_panel_1)
         self.Controls.Add(self.placeholder_panel_2)
-        self.Controls.Add(self.placeholder_panel_3)
+        #self.panel_setup_test()
+
         #debug box
         self.Controls.Add(self.console_box)
+
+    def new_radio(self):
+        radio = RadioButton()
+        radio.Font = Font("Lucida Console", 10)
+        radio.ForeColor = self.color_window
+        radio.Size = Size(50, 15)
+        return radio
+
+    def new_combobox(self):
+        combobox = ComboBox()
+        combobox.Font = Font("Lucida Console", 8)
+        combobox.BackColor = self.color_window
+        combobox.ForeColor = self.color_title
+        combobox.Size = Size(120,21)
+        return combobox
+
+    def new_textbox(self):
+        textbox = TextBox()
+        textbox.Font = Font("Lucida Console", 8)
+        textbox.BackColor = self.color_window
+        textbox.ForeColor = self.color_title
+        textbox.TextAlign = HorizontalAlignment.Center
+        return textbox
+
+
+    def new_panel(self):
+        panel = Panel()
+        panel.Size = Size(420,260)
+        panel.Location = Point(30,75)
+        panel.BackColor = self.color_panel
+        panel.Anchor = (AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Top)
+        panel.Visible = False
+        panel.Enabled = panel.Visible
+        return panel
+
 
     #Tool activator 2
     def placeholder_tool_1(self, sender, args):
@@ -260,15 +273,8 @@ class FormOne(Form):
         return
 
     #Tool activator 4
-    def placeholder_tool_3(self, sender, args):
-        self.disable_all(self.placeholder_panel_3.Name)
-        self.placeholder_panel_3.Visible = not self.placeholder_panel_3.Visible
-        self.placeholder_panel_3.Enabled = self.placeholder_panel_3.Visible
-        if self.placeholder_panel_3.Enabled is True:
-            self.button_ph_tool_3.BackColor = self.color_button_sel
-        else:
-            self.button_ph_tool_3.BackColor = self.color_button
-        return
+
+
 
     #Tool activator 1
     def acl_tool(self, sender, args):
@@ -281,8 +287,8 @@ class FormOne(Form):
             self.button_acl_tool.BackColor = self.color_button
 
     def disable_all(self, own_panel):
-        panel_names = [self.acl_panel.Name, self.placeholder_panel_1.Name, self.placeholder_panel_2.Name, self.placeholder_panel_3.Name]
-        panels = [self.acl_panel, self.placeholder_panel_1, self.placeholder_panel_2, self.placeholder_panel_3]
+        panel_names = [self.acl_panel.Name, self.placeholder_panel_1.Name, self.placeholder_panel_2.Name]
+        panels = [self.acl_panel, self.placeholder_panel_1, self.placeholder_panel_2]
         buttons = [self.button_acl_tool, self.button_ph_tool_1, self.button_ph_tool_2, self.button_ph_tool_3]
         #self.dbw("own_panel value", own_panel)
         for panel_name, panel, button in zip(panel_names, panels, buttons):
@@ -298,8 +304,12 @@ class FormOne(Form):
     def dbw(self, tag, text):
         self.console_box.Text += ' >>> ' + tag + ' : ' + str(text) + ' >>>' + Environment.NewLine
 
-    def console_write(self, text, tag = None):
-        self.console_box.Text += tag + text
+    def console_write(self, text):
+        self.console_box.Text += (text)
+
+    def radio_check(self, sender, args):
+        self.console_write("Poop")
+        return
 
 
 
