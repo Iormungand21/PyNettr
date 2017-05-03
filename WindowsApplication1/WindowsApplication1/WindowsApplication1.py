@@ -143,23 +143,23 @@ class FormOne(Form):
         self.acl_dest_entry.Location = Point(17, 120)
         self.acl_dest_entry.Text = "destination-object-group"
 
-        self.acl_proto_box = self.new_combobox()
-        self.acl_proto_box.Name = "acl_proto_box"
-        self.acl_proto_box.Items.AddRange(("port", "object-group", "object"))
-        self.acl_proto_box.Text = "object-group"
-        self.acl_proto_box.Location = Point(85,140)
+        self.acl_port_box = self.new_combobox()
+        self.acl_port_box.Name = "acl_proto_box"
+        self.acl_port_box.Items.AddRange(("port", "object-group", "object"))
+        self.acl_port_box.Text = "object-group"
+        self.acl_port_box.Location = Point(85,140)
         
-        self.acl_proto_label = Label()
-        self.acl_proto_label.Anchor = AnchorStyles.Top
-        self.acl_proto_label.Text = "Port Type:"
-        self.acl_proto_label.Size = Size(120,30)
-        self.acl_proto_label.Font = Font("Lucida Console", 9)
-        self.acl_proto_label.Location = Point(7,145)
+        self.acl_port_label = Label()
+        self.acl_port_label.Anchor = AnchorStyles.Top
+        self.acl_port_label.Text = "Port Type:"
+        self.acl_port_label.Size = Size(120,30)
+        self.acl_port_label.Font = Font("Lucida Console", 9)
+        self.acl_port_label.Location = Point(7,145)
 
-        self.acl_proto_entry = self.new_textbox()
-        self.acl_proto_entry.Name = "acl_proto_field"
-        self.acl_proto_entry.Size = Size(190, 20)
-        self.acl_proto_entry.Location = Point(211, 141)
+        self.acl_port_entry = self.new_textbox()
+        self.acl_port_entry.Name = "acl_proto_field"
+        self.acl_port_entry.Size = Size(190, 20)
+        self.acl_port_entry.Location = Point(211, 141)
 
         self.acl_print_btn = self.new_button()
         self.acl_print_btn.Location = Point(17, 176)
@@ -180,9 +180,9 @@ class FormOne(Form):
         self.acl_panel.Controls.Add(self.acl_dest_type_label)
         self.acl_panel.Controls.Add(self.acl_source_entry)
         self.acl_panel.Controls.Add(self.acl_dest_entry)
-        self.acl_panel.Controls.Add(self.acl_proto_box)
-        self.acl_panel.Controls.Add(self.acl_proto_label)
-        self.acl_panel.Controls.Add(self.acl_proto_entry)
+        self.acl_panel.Controls.Add(self.acl_port_box)
+        self.acl_panel.Controls.Add(self.acl_port_label)
+        self.acl_panel.Controls.Add(self.acl_port_entry)
         self.acl_panel.Controls.Add(self.acl_print_btn)
 
         #End of ACL Tool Panel##################################
@@ -288,14 +288,20 @@ class FormOne(Form):
 
         dest = self.acl_dest_entry.Text
         source = self.acl_source_entry.Text
+        port_type = self.acl_port_box.Text
+        port = self.acl_port_entry.Text
 
         submission = ["access-list", acl_name, protocol, source_type, source, dest_type, dest]
 
         if protocol != "ip" :
-
+            submission.append(port_type)
+            submission.append(port)
 
         submission = " ".join(submission)
         self.console_write(submission)
+        self.console_box.Focus()
+        self.console_box.SelectionStart = self.console_box.TextLength
+        self.console_box.ScrollToCaret()
 
    #Tool activator 2
     def placeholder_tool_1(self, sender, args):
